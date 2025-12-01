@@ -36,6 +36,23 @@ This project demonstrates end-to-end analytics skills:
 
 ---
 
+## ❓ Business Questions Answered
+
+This project is designed to answer questions such as:
+
+- Who are our **most valuable customers**?
+- Which customers are **high-frequency and high-spending** (Champions)?
+- Which customers are **loyal but could be upsold**?
+- Which customers are **at risk of churning**?
+- How much revenue is contributed by each **customer segment**?
+- Is there a clear relationship between **purchase frequency** and **total spending**?
+- Which segments should be prioritized for:
+  - Retention campaigns  
+  - Win-back campaigns  
+  - Low-cost reactivation?
+
+---
+
 ## 📄 Data Description
 
 This project uses a transactional sales table (`vw_sales`) that includes:
