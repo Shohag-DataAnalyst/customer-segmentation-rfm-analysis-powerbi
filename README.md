@@ -343,6 +343,19 @@ Everything else will still work.
 
 ---
 
+## 📁 Project Structure
+
+```bash
+customer-segmentation-rfm-analysis-powerbi/
+│
+├── README.md                                  # Project documentation  
+├── rfm_sql_views.sql                           # All SQL scripts used to build the RFM pipeline  
+├── rfm_customer_segmentation_dashboard.pbix    # Power BI dashboard file  
+├── dashboard.png                               # Dashboard screenshot used in README  
+
+```
+---
+
 ## 🧠 Skills Demonstrated
 
 This project showcases several key data analytics and business intelligence skills:
