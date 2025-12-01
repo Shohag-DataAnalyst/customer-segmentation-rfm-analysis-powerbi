@@ -1,3 +1,10 @@
+![SQL](https://img.shields.io/badge/Skills-SQL-blue?style=flat-square)
+![Power BI](https://img.shields.io/badge/Tool-Power%20BI-yellow?style=flat-square)
+![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square)
+
+---
+
 # customer-segmentation-rfm-analysis-powerbi
 Customer segmentation project using RFM (Recency, Frequency, Monetary) analysis with SQL and Power BI. Includes SQL scoring logic, segmentation rules, and an interactive dashboard.
 
@@ -36,6 +43,30 @@ The final results were visualized in Power BI to create an interactive dashboard
 
 This project demonstrates end-to-end analytics skills:  
 **SQL → Data Modeling → Segmentation Logic → Power BI Dashboard → Business Insights**
+
+---
+
+## 📄 Data Description
+
+This project uses a transactional sales table (`vw_sales`) that includes:
+
+- `order_date` — date of purchase  
+- `order_number` — unique order identifier  
+- `customer_key` — customer ID  
+- `product_key` — product identifier  
+- `order_quantity` — number of units  
+- `product_price` — price per unit  
+- `revenue` — calculated as (quantity × price)
+
+These fields are enough to generate:
+
+- Recency (last order date)
+- Frequency (total orders)
+- Monetary Value (total spending)
+
+The project does **not** rely on any external dataset —  
+it uses transformed data from SQL views created earlier in the pipeline.
+
 
 ---
 
