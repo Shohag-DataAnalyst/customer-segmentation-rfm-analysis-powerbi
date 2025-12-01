@@ -1,7 +1,9 @@
-![SQL](https://img.shields.io/badge/Skills-SQL-blue?style=flat-square)
-![Power BI](https://img.shields.io/badge/Tool-Power%20BI-yellow?style=flat-square)
-![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square)
-![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square)
+<p align="center">
+  <img src="https://img.shields.io/badge/Skills-SQL-blue?style=for-the-badge" alt="SQL">
+  <img src="https://img.shields.io/badge/Tool-Power%20BI-yellow?style=for-the-badge" alt="Power BI">
+  <img src="https://img.shields.io/badge/Database-PostgreSQL-336791?style=for-the-badge" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" alt="Completed">
+</p>
 
 ---
 
