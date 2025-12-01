@@ -147,7 +147,7 @@ These KPIs summarize customer activity at a glance.
 
 ---
 
-### 3️⃣ Revenue by Segment (Bar Chart)
+### 3️⃣ Revenue by Segment (Clustered Column Chart)
 Reveals which segments contribute the most revenue.  
 This helps businesses target the highest-value groups with offers and retention strategies.
 
