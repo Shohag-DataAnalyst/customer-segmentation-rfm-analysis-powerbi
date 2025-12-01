@@ -227,3 +227,107 @@ Usually low priority, but they can be targeted with low-cost reactivation campai
 ### 🔹 6. Clear Relationship Between Frequency and Spending
 The scatter plot shows that as **frequency increases**, total spending also increases.  
 High-value clusters are clearly visible, helping businesses identify their strongest revenue drivers.
+
+---
+
+## ▶️ How to Run This Project
+
+### 1️⃣ Requirements
+
+To replicate this project, you need:
+
+- PostgreSQL (or any SQL database)
+- Power BI Desktop
+- A fact table containing customer order history  
+  (order date, customer ID, product price, quantity, etc.)
+
+---
+
+### 2️⃣ SQL Setup
+
+Run the SQL scripts in this order:
+
+1. `vw_customer_summary`  
+2. `vw_rfm_base`  
+3. `vw_rfm_scores`  
+4. `vw_rfm_final`  
+5. `vw_rfm_segmented`
+
+These views will generate:
+
+- Recency (days since last purchase)  
+- Frequency (number of orders)  
+- Monetary value (total spend)  
+- RFM scores (1–5)  
+- Segment classification
+
+---
+
+### 3️⃣ Power BI Setup
+
+1. Open **Power BI Desktop**  
+2. Connect to your PostgreSQL database  
+3. Load the view:
+4. Refresh the data  
+5. The dashboard will automatically calculate and visualize:
+
+- Segment distribution  
+- Total revenue  
+- Customer behavior  
+- RFM values  
+- Spending patterns  
+
+---
+
+### 4️⃣ Optional: Replace with Your Dataset  
+If you want to apply this to your own data:
+
+- Replace `vw_sales` with your own fact table  
+- Make sure the table includes:
+  - customer_key  
+  - order_date  
+  - order_number  
+  - revenue  
+
+Everything else will still work.
+
+---
+
+## 🧠 Skills Demonstrated
+
+This project showcases several key data analytics and business intelligence skills:
+
+### 🔹 SQL Data Processing
+- Joins, aggregations, window functions  
+- Ranking and segmentation logic  
+- Creating reusable SQL views  
+- RFM scoring methodology  
+
+### 🔹 Data Modeling
+- Creating a clean analytical pipeline  
+- Designing customer-level summary tables  
+- Managing snapshot dates and recency metrics  
+
+### 🔹 Business Intelligence (Power BI)
+- Building interactive dashboards  
+- Using slicers, KPI cards, charts, and scatter plots  
+- Consistent color themes and UI design  
+- Turning data into meaningful business insights  
+
+### 🔹 Analytical Thinking
+- Identifying high-value customer segments  
+- Marketing recommendations based on behavioral data  
+- Revenue impact analysis  
+
+---
+
+## ✅ Conclusion
+
+This RFM Customer Segmentation project takes raw transactional data and transforms it into actionable business insights.  
+It demonstrates the complete analytics workflow:
+
+**Data → SQL Modeling → RFM Scoring → Segmentation → Dashboard → Insights**
+
+This project reflects strong analytical thinking, technical skills, and the ability to build end-to-end solutions that support data-driven decision making.
+
+If you found this project useful or have feedback, feel free to connect or reach out!
