@@ -121,7 +121,7 @@ The final dashboard presents customer segments, spending behavior, and key busin
 
 ### 📌 Dashboard Preview
 
-> !(Screenshot/(Dashboard.png))`
+> ![Dashboard Screenshot](https://github.com/Shohag-DataAnalyst/customer-segmentation-rfm-analysis-powerbi/blob/main/Screenshot/Dashboard.png?raw=true)
 
 ---
 
