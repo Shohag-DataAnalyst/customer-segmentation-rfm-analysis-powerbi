@@ -380,4 +380,11 @@ It demonstrates the complete analytics workflow:
 
 This project reflects strong analytical thinking, technical skills, and the ability to build end-to-end solutions that support data-driven decision making.
 
-If you found this project useful or have feedback, feel free to connect or reach out!
+---
+
+## 📬 Contact
+
+If you’d like to discuss this project, collaborate, or have feedback, feel free to reach out:
+
+- LinkedIn: [NURA ALAM SHOHAG](https://www.linkedin.com/in/dataanalystshohag/)  
+- GitHub: [Shohag-DataAnalyst](https://github.com/Shohag-DataAnalyst)
