@@ -10,18 +10,6 @@ Customer segmentation project using RFM (Recency, Frequency, Monetary) analysis 
 
 ---
 
-## 📄 Table of Contents
-- [Project Overview](#project-overview)  
-- [SQL Pipeline (RFM Logic)](#sql-pipeline-rfm-logic)  
-- [Power BI Dashboard](#power-bi-dashboard)  
-- [Dashboard Pages & Insights](#dashboard-pages--insights)  
-- [Key Business Insights](#key-business-insights)  
-- [Project Structure & How to Run](#project-structure--how-to-run)  
-- [Skills Demonstrated](#skills-demonstrated)  
-- [Conclusion](#conclusion)  
-
----
-
 ## 📁 Project Overview
 
 This project performs customer segmentation using the **RFM (Recency, Frequency, Monetary)** model.
