@@ -113,3 +113,63 @@ SELECT
 FROM vw_rfm_final;
 
 ```
+---
+
+## 📊 Power BI Dashboard
+
+The final dashboard presents customer segments, spending behavior, and key business insights clearly and interactively.
+
+### 📌 Dashboard Preview
+
+> !(Screenshot/(Dashboard.png))`
+
+---
+
+## 🖥️ Dashboard Pages & Insights
+
+### 1️⃣ Segment Distribution (Pie Chart)
+Shows the percentage of customers in each segment:
+- **Champions** → most engaged customers  
+- **Loyal** → frequent buyers  
+- **Big Spenders** → high-value customers  
+- **At Risk** → potential churn  
+- **Hibernating** → inactive customers  
+- **Others** → neutral group
+
+---
+
+### 2️⃣ Key Metrics (Top KPI Cards)
+- **Total Customers**  
+- **Total Revenue**  
+- **Average Recency (Days)**  
+
+These KPIs summarize customer activity at a glance.
+
+---
+
+### 3️⃣ Revenue by Segment (Bar Chart)
+Reveals which segments contribute the most revenue.  
+This helps businesses target the highest-value groups with offers and retention strategies.
+
+---
+
+### 4️⃣ Segment Summary Table
+Shows segment-level averages:
+- Average Recency  
+- Average Frequency  
+- Average Monetary Value  
+- Customer Count  
+
+Useful for comparing customer groups side-by-side.
+
+---
+
+### 5️⃣ Customer Activity vs Spending (Scatter Plot)
+Highlights the relationship between:
+- **Purchase Frequency**  
+- **Total Spending**  
+
+Color-coded by segment to identify:
+- High-value clusters  
+- At-risk behavior  
+- Low-value groups  
