@@ -8,82 +8,121 @@
 ---
 
 # 📊 Customer Segmentation Using RFM Analysis (SQL + Power BI)
-Customer segmentation project using RFM (Recency, Frequency, Monetary) analysis with SQL and Power BI. Includes SQL scoring logic, segmentation rules, and an interactive dashboard.
+
+An end-to-end customer segmentation project using **RFM (Recency, Frequency, Monetary)** analysis built with SQL and Power BI.  
+This project transforms raw transactional data into clear customer segments and business-ready insights.
 
 ---
 
 ## 📁 Project Overview
 
-This project performs customer segmentation using the **RFM (Recency, Frequency, Monetary)** model.
+This project applies the **RFM framework** to segment customers based on their purchasing behavior.
 
-Using SQL, I generated:
+Using **SQL**, I built a full analytical pipeline that:
+- Aggregates customer transaction history
+- Calculates Recency, Frequency, and Monetary values
+- Scores customers on a 1–5 scale for each RFM metric
+- Generates combined RFM codes (e.g., 545, 321)
+- Classifies customers into actionable segments
 
-- Customer purchase history  
-- RFM scores (1–5)  
-- Final RFM codes (e.g., 545, 321, etc.)  
-- Segments such as *Champions*, *Loyal*, *Big Spenders*, *At Risk*, and *Hibernating*
+The results are visualized in **Power BI** through an interactive dashboard designed to help marketing and business teams understand customer value and behavior.
 
-The final results were visualized in Power BI to create an interactive dashboard showing:
+This project demonstrates the full analytics workflow:
 
-- Segment distribution  
-- Revenue contribution by segment  
-- Key performance metrics  
-- Customer behavior patterns  
-- Activity vs Spending relationships
-
-This project demonstrates end-to-end analytics skills:  
-**SQL → Data Modeling → Segmentation Logic → Power BI Dashboard → Business Insights**
+**SQL modeling → segmentation logic → Power BI dashboard → business insights**
 
 ---
 
 ## ❓ Business Questions Answered
 
-This project is designed to answer questions such as:
+This project answers key business and marketing questions such as:
 
 - Who are our **most valuable customers**?
-- Which customers are **high-frequency and high-spending** (Champions)?
-- Which customers are **loyal but could be upsold**?
-- Which customers are **at risk of churning**?
-- How much revenue is contributed by each **customer segment**?
-- Is there a clear relationship between **purchase frequency** and **total spending**?
+- Which customers are **high-frequency and high-spending**?
+- Which customers are **loyal but under-monetized**?
+- Which customers are **at risk of churn**?
+- How much **revenue is contributed by each segment**?
+- Is there a clear relationship between **purchase frequency and spending**?
 - Which segments should be prioritized for:
   - Retention campaigns  
-  - Win-back campaigns  
-  - Low-cost reactivation?
+  - Upsell opportunities  
+  - Win-back strategies  
+  - Low-cost reactivation  
 
 ---
 
-## 📄 Data Description
+## 🛠 Tools & Technologies
 
-This project uses a transactional sales table (`vw_sales`) that includes:
+- **SQL (PostgreSQL)**  
+  - Aggregations  
+  - Window functions  
+  - NTILE-based scoring  
+  - Reusable analytical views  
 
-- `order_date` — date of purchase  
+- **Power BI**
+  - KPI cards
+  - Slicers and filters
+  - Column, pie, and scatter charts
+  - Segment-level analysis
+
+---
+
+## 🗄️ Dataset & Data Model
+
+The analysis is built on a transactional sales view (`vw_sales`) containing:
+
+- `order_date` — purchase date  
 - `order_number` — unique order identifier  
 - `customer_key` — customer ID  
 - `product_key` — product identifier  
-- `order_quantity` — number of units  
-- `product_price` — price per unit  
-- `revenue` — calculated as (quantity × price)
+- `order_quantity` — units sold  
+- `product_price` — unit price  
+- `revenue` — quantity × price  
 
-These fields are enough to generate:
+These fields are sufficient to compute:
+- **Recency** → days since last purchase  
+- **Frequency** → number of orders  
+- **Monetary** → total customer spend  
 
-- Recency (last order date)
-- Frequency (total orders)
-- Monetary Value (total spending)
-
-The project does **not** rely on any external dataset —  
-it uses transformed data from SQL views created earlier in the pipeline.
-
+No external dataset is required — the project relies entirely on SQL transformations.
 
 ---
 
-## 🗄️ SQL Pipeline (RFM Logic)
+## Project Structure
 
-This project uses SQL to calculate **Recency, Frequency, Monetary** scores for every customer.
+```
+customer-segmentation-rfm-analysis-powerbi/
+│
+├── README.md
+├── rfm_sql_views.sql
+├── rfm_customer_segmentation_dashboard.pbix
+├── Screenshot/
+│   └── Dashboard.png
+```
+---
 
-### 1️⃣ Base Customer Summary
-Counts each customer’s orders, total revenue, and their most recent purchase date.
+## Dashboards Included
 
+### 1️⃣ Segment Overview
+- Customer segment distribution
+- Total customers
+- Total revenue
+- Average recency
+
+### 2️⃣ Revenue & Value Analysis
+- Revenue contribution by segment
+- Segment-wise monetary comparison
+
+### 3️⃣ Customer Behavior Analysis
+- Frequency vs monetary scatter plot
+- Segment clustering and patterns
+
+
+## 🧮 SQL Pipeline (RFM Logic)
+
+The RFM logic is implemented entirely in SQL using a series of views.
+
+### 1️⃣ Customer Purchase Summary
 ```sql
 CREATE OR REPLACE VIEW vw_customer_summary AS
 SELECT
@@ -93,12 +132,12 @@ SELECT
 	MAX(order_date) AS last_order_date
 FROM vw_sales
 GROUP BY customer_key;
-
-
+```
+### 2️⃣ RFM Base Metrics
+```sql
 CREATE OR REPLACE VIEW vw_rfm_base AS 
 WITH snapshot AS (
-	SELECT 
-		MAX(order_date) AS snapshot_date
+	SELECT MAX(order_date) AS snapshot_date
 	FROM vw_sales
 )
 SELECT
@@ -106,298 +145,85 @@ SELECT
 	cs.total_orders AS frequency,
 	cs.total_revenue AS monetary,
 	cs.last_order_date,
-    s.snapshot_date,
+	s.snapshot_date,
 	(s.snapshot_date - cs.last_order_date) AS recency_days
-FROM vw_customer_summary AS cs
-CROSS JOIN snapshot AS s
-
-
+FROM vw_customer_summary cs
+CROSS JOIN snapshot s;
+```
+### 3️⃣ RFM Scoring
+```sql
 CREATE OR REPLACE VIEW vw_rfm_scores AS
 SELECT
-    customer_key,
-    recency_days,
-    frequency,
-    monetary,
-    NTILE(5) OVER (ORDER BY recency_days ASC) AS r_raw,
-    NTILE(5) OVER (ORDER BY frequency DESC) AS f_score,
-    NTILE(5) OVER (ORDER BY monetary DESC) AS m_score
+	customer_key,
+	recency_days,
+	frequency,
+	monetary,
+	NTILE(5) OVER (ORDER BY recency_days ASC) AS r_raw,
+	NTILE(5) OVER (ORDER BY frequency DESC) AS f_score,
+	NTILE(5) OVER (ORDER BY monetary DESC) AS m_score
 FROM vw_rfm_base;
-
-
-
+```
+###4️⃣ Final RFM Codes
+```sql
 CREATE OR REPLACE VIEW vw_rfm_final AS
 SELECT
-    customer_key,
-    recency_days,
-    frequency,
-    monetary,
-    (6 - r_raw) AS r_score,
-    f_score,
-    m_score,
-    CONCAT((6 - r_raw), f_score, m_score) AS rfm_code
+	customer_key,
+	recency_days,
+	frequency,
+	monetary,
+	(6 - r_raw) AS r_score,
+	f_score,
+	m_score,
+	CONCAT((6 - r_raw), f_score, m_score) AS rfm_code
 FROM vw_rfm_scores;
-
-
-
-
+```
+###5️⃣ Customer Segmentation
+```sql
 CREATE OR REPLACE VIEW vw_rfm_segmented AS
 SELECT
-    customer_key,
-    recency_days,
-    frequency,
-    monetary,
-    r_score,
-    f_score,
-    m_score,
-    rfm_code,
-
-    CASE
-        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 'Champions'
-        WHEN f_score >= 4 AND r_score >= 3 THEN 'Loyal'
-        WHEN m_score >= 4 AND f_score BETWEEN 2 AND 3 THEN 'Big Spenders'
-        WHEN r_score <= 2 AND f_score >= 3 THEN 'At Risk'
-        WHEN r_score = 1 AND f_score <= 2 THEN 'Hibernating'
-        ELSE 'Others'
-    END AS segment
-
+	customer_key,
+	recency_days,
+	frequency,
+	monetary,
+	r_score,
+	f_score,
+	m_score,
+	rfm_code,
+	CASE
+		WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 'Champions'
+		WHEN f_score >= 4 AND r_score >= 3 THEN 'Loyal'
+		WHEN m_score >= 4 AND f_score BETWEEN 2 AND 3 THEN 'Big Spenders'
+		WHEN r_score <= 2 AND f_score >= 3 THEN 'At Risk'
+		WHEN r_score = 1 AND f_score <= 2 THEN 'Hibernating'
+		ELSE 'Others'
+	END AS segment
 FROM vw_rfm_final;
-
 ```
----
-
-## 📊 Power BI Dashboard
-
-The final dashboard presents customer segments, spending behavior, and key business insights clearly and interactively.
-
-### 📌 Dashboard Preview
-
-> ![Dashboard Screenshot](https://github.com/Shohag-DataAnalyst/customer-segmentation-rfm-analysis-powerbi/blob/main/Screenshot/Dashboard.png?raw=true)
 
 ---
 
-## 🖥️ Dashboard Pages & Insights
+## How to Run This Project
+---
+### ✅ Option 1 — View Dashboard Only
+1. Download `rfm_customer_segmentation_dashboard.pbix`
+2. Open in Power BI Desktop
+3. Explore visuals directly or re-point the data source if needed
 
-### 1️⃣ Segment Distribution (Pie Chart)
-Shows the percentage of customers in each segment:
-- **Champions** → most engaged customers  
-- **Loyal** → frequent buyers  
-- **Big Spenders** → high-value customers  
-- **At Risk** → potential churn  
-- **Hibernating** → inactive customers  
-- **Others** → neutral group
+--- 
+
+### ✅ Option 2 — Rebuild Full SQL + Power BI Pipeline
+1. Create or use an existing PostgreSQL database
+2. Ensure a transactional sales table exists
+3. Run the SQL views in this order:
+	- `vw_customer_summary`
+ 	- `vw_rfm_base`
+  	- `vw_rfm_scores`
+   	- `vw_rfm_final`
+   	- `vw_rfm_segmented`
+4. Connect Power BI to the final view
+5. Refresh and explore the dashboard
 
 ---
 
-### 2️⃣ Key Metrics (Top KPI Cards)
-- **Total Customers**  
-- **Total Revenue**  
-- **Average Recency (Days)**  
+## Dashboard Screenshots
 
-These KPIs summarize customer activity at a glance.
-
----
-
-### 3️⃣ Revenue by Segment (Clustered Column Chart)
-Reveals which segments contribute the most revenue.  
-This helps businesses target the highest-value groups with offers and retention strategies.
-
----
-
-### 4️⃣ Segment Summary Table
-Shows segment-level averages:
-- Average Recency  
-- Average Frequency  
-- Average Monetary Value  
-- Customer Count  
-
-Useful for comparing customer groups side-by-side.
-
----
-
-### 5️⃣ Customer Activity vs Spending (Scatter Plot)
-Highlights the relationship between:
-- **Purchase Frequency**  
-- **Total Spending**  
-
-Color-coded by segment to identify:
-- High-value clusters  
-- At-risk behavior  
-- Low-value groups
-
----
-
-## 💡 Key Business Insights
-
-Here are the main insights discovered from the RFM analysis:
-
-### 🔹 1. Champions Drive the Most Revenue
-Customers classified as **Champions** contribute the highest revenue.  
-They buy frequently, spend the most, and have very recent activity.  
-These customers should be prioritized with loyalty programs and exclusive offers.
-
----
-
-### 🔹 2. Loyal Customers Are Highly Engaged
-The **Loyal** segment makes consistent purchases and shows strong engagement.  
-They react well to:
-- Discounts  
-- Early product releases  
-- Membership perks  
-
----
-
-### 🔹 3. Big Spenders Show High Monetary Value but Lower Frequency
-This group spends a lot but does not buy often.  
-They can be upsold through:
-- Premium bundles  
-- Personalized recommendations  
-- Targeted remarketing campaigns  
-
----
-
-### 🔹 4. At Risk Customers Show Signs of Churn
-These customers previously purchased often but haven’t bought in a long time.  
-They may be recovered with:
-- Win-back campaigns  
-- Urgent limited-time offers  
-- Email reminders  
-
----
-
-### 🔹 5. Hibernating Customers Are Mostly Inactive
-This group has:
-- Long recency  
-- Low frequency  
-- Low monetary value  
-
-Usually low priority, but they can be targeted with low-cost reactivation campaigns.
-
----
-
-### 🔹 6. Clear Relationship Between Frequency and Spending
-The scatter plot shows that as **frequency increases**, total spending also increases.  
-High-value clusters are clearly visible, helping businesses identify their strongest revenue drivers.
-
----
-
-## ▶️ How to Run This Project
-
-### 1️⃣ Requirements
-
-To replicate this project, you need:
-
-- PostgreSQL (or any SQL database)
-- Power BI Desktop
-- A fact table containing customer order history  
-  (order date, customer ID, product price, quantity, etc.)
-
----
-
-### 2️⃣ SQL Setup
-
-Run the SQL scripts in this order:
-
-1. `vw_customer_summary`  
-2. `vw_rfm_base`  
-3. `vw_rfm_scores`  
-4. `vw_rfm_final`  
-5. `vw_rfm_segmented`
-
-These views will generate:
-
-- Recency (days since last purchase)  
-- Frequency (number of orders)  
-- Monetary value (total spend)  
-- RFM scores (1–5)  
-- Segment classification
-
----
-
-### 3️⃣ Power BI Setup
-
-1. Open **Power BI Desktop**  
-2. Connect to your PostgreSQL database  
-3. Load the view:
-4. Refresh the data  
-5. The dashboard will automatically calculate and visualize:
-
-- Segment distribution  
-- Total revenue  
-- Customer behavior  
-- RFM values  
-- Spending patterns  
-
----
-
-### 4️⃣ Optional: Replace with Your Dataset  
-If you want to apply this to your own data:
-
-- Replace `vw_sales` with your own fact table  
-- Make sure the table includes:
-  - customer_key  
-  - order_date  
-  - order_number  
-  - revenue  
-
-Everything else will still work.
-
----
-
-## 📁 Project Structure
-
-```bash
-customer-segmentation-rfm-analysis-powerbi/
-│
-├── README.md                                  # Project documentation  
-├── rfm_sql_views.sql                           # All SQL scripts used to build the RFM pipeline  
-├── rfm_customer_segmentation_dashboard.pbix    # Power BI dashboard file  
-├── dashboard.png                               # Dashboard screenshot used in README  
-
-```
----
-
-## 🧠 Skills Demonstrated
-
-This project showcases several key data analytics and business intelligence skills:
-
-### 🔹 SQL Data Processing
-- Joins, aggregations, window functions  
-- Ranking and segmentation logic  
-- Creating reusable SQL views  
-- RFM scoring methodology  
-
-### 🔹 Data Modeling
-- Creating a clean analytical pipeline  
-- Designing customer-level summary tables  
-- Managing snapshot dates and recency metrics  
-
-### 🔹 Business Intelligence (Power BI)
-- Building interactive dashboards  
-- Using slicers, KPI cards, charts, and scatter plots  
-- Consistent color themes and UI design  
-- Turning data into meaningful business insights  
-
-### 🔹 Analytical Thinking
-- Identifying high-value customer segments  
-- Marketing recommendations based on behavioral data  
-- Revenue impact analysis  
-
----
-
-## ✅ Conclusion
-
-This RFM Customer Segmentation project takes raw transactional data and transforms it into actionable business insights.  
-It demonstrates the complete analytics workflow:
-
-**Data → SQL Modeling → RFM Scoring → Segmentation → Dashboard → Insights**
-
-This project reflects strong analytical thinking, technical skills, and the ability to build end-to-end solutions that support data-driven decision making.
-
----
-
-## 📬 Contact
-
-If you’d like to discuss this project, collaborate, or have feedback, feel free to reach out:
-
-- LinkedIn: [NURA ALAM SHOHAG](https://www.linkedin.com/in/dataanalystshohag/)  
-- GitHub: [Shohag-DataAnalyst](https://github.com/Shohag-DataAnalyst)
