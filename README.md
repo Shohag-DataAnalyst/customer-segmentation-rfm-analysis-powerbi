@@ -7,14 +7,14 @@
 
 ---
 
-# 📊 Customer Segmentation Using RFM Analysis (SQL + Power BI)
+# Customer Segmentation Using RFM Analysis (SQL + Power BI)
 
 An end-to-end customer segmentation project using **RFM (Recency, Frequency, Monetary)** analysis built with SQL and Power BI.  
 This project transforms raw transactional data into clear customer segments and business-ready insights.
 
 ---
 
-## 📁 Project Overview
+## 📌 Project Overview
 
 This project applies the **RFM framework** to segment customers based on their purchasing behavior.
 
@@ -67,7 +67,7 @@ This project answers key business and marketing questions such as:
 
 ---
 
-## 🗄️ Dataset & Data Model
+## 🧱 Dataset & Data Model
 
 The analysis is built on a transactional sales view (`vw_sales`) containing:
 
@@ -88,7 +88,7 @@ No external dataset is required — the project relies entirely on SQL transform
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 customer-segmentation-rfm-analysis-powerbi/
@@ -101,7 +101,7 @@ customer-segmentation-rfm-analysis-powerbi/
 ```
 ---
 
-## Dashboards Included
+## 📊 Dashboards Included
 
 ### 1️⃣ Segment Overview
 - Customer segment distribution
@@ -202,7 +202,7 @@ FROM vw_rfm_final;
 
 ---
 
-## How to Run This Project
+## 🚀 How to Run This Project
 ---
 ### ✅ Option 1 — View Dashboard Only
 1. Download `rfm_customer_segmentation_dashboard.pbix`
@@ -225,6 +225,44 @@ FROM vw_rfm_final;
 
 ---
 
-## Dashboard Screenshots
+## 📸 Dashboard Screenshots
 
-!(Screenshot/Dashboard.png
+![Overview](Screenshot/Dashboard.png)
+
+---
+
+## 📈 Key Insights & Findings 
+
+### 🔹 Champions Drive the Majority of Revenue
+- Champions purchase frequently, spend the most, and have very recent activity.
+- They should be prioritized with loyalty programs and exclusive offers
+
+### 🔹 Loyal Customers Are Strong Upsell Candidates
+- Loyal customers buy often but spend slightly less than Champions.
+- Targeted bundles and premium offers can increase their value.
+
+### 🔹 Big Spenders Have High Value but Lower Frequency
+- This group spends heavily but purchases less often.
+- Personalized remarketing and premium positioning can increase engagement.
+
+### 🔹 At Risk Customers Show Churn Signals
+- Previously active customers with declining recency.
+- Win-back campaigns and time-sensitive offers are recommended.
+
+### 🔹 Hibernating Customers Are Low Priority
+- Low frequency, low spend, and long inactivity.
+- Only low-cost reactivation efforts are justified.
+
+### 🔹 Clear Frequency–Spending Relationship
+- Higher purchase frequency strongly correlates with higher total spending, confirming core RFM assumptions.
+
+---
+
+## 📬 Contact
+
+**Author:** Shohag  
+
+If you’d like to discuss this project, collaborate, or talk about data analyst roles:
+
+- 💼 LinkedIn: [NURA ALAM SHOHAG](https://www.linkedin.com/in/dataanalystshohag/)
+- 🧑‍💻 GitHub: [Shohag-DataAnalyst](https://github.com/Shohag-DataAnalyst)
