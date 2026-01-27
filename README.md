@@ -14,6 +14,12 @@ This project transforms raw transactional data into clear customer segments and 
 
 ---
 
+## 🔗 Live Interactive Dashboard
+👉 **View the live Power BI dashboard (no login required):**  
+[Click Here](https://app.powerbi.com/view?r=eyJrIjoiN2Y5Y2RmM2ItMGQ0Yi00MWFlLTg3OGQtNTQ3NTRlODhjMTM0IiwidCI6IjY5MDRhYjJkLTlhZjQtNDNlOS05ODlmLTY1Mzg1NWEyODcyYSIsImMiOjEwfQ%3D%3D)
+
+---
+
 ## 📌 Project Overview
 
 This project applies the **RFM framework** to segment customers based on their purchasing behavior.
